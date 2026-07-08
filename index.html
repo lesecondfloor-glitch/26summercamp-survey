@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026歇熱笑咍咍台羅營「來去台北弄險」課後問卷</title>
+<style>
+  :root {
+    --cream: #FFF8EE;
+    --paper: #FFFDF8;
+    --orange: #F5A623;
+    --orange-deep: #D9871A;
+    --green: #2D5C4D;
+    --green-light: #4A7A68;
+    --coral: #E8634A;
+    --brown: #4A3729;
+    --brown-soft: #7A6354;
+    --line: #E8DCC8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    color: var(--brown);
+    -webkit-font-smoothing: antialiased;
+  }
+  .bg-deco { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.5; }
+  .wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #D9871A 0%, #F5A623 100%);
+    border-radius: 28px; padding: 36px 28px 32px; color: #FFF8EE;
+    position: relative; overflow: hidden;
+    box-shadow: 0 12px 32px -8px rgba(217, 135, 26, 0.4);
+  }
+  .hero-deco { position: absolute; top: -20px; right: -20px; width: 140px; height: 140px; opacity: 0.18; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+    letter-spacing: 0.08em; background: rgba(255,255,255,0.15);
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .hero h1 { margin: 0 0 10px; font-size: 23px; line-height: 1.5; font-weight: 900; }
+  .hero .accent { color: #4A3729; }
+  .hero p { margin: 0; font-size: 14px; opacity: 0.85; line-height: 1.8; }
+  .hero-org {
+    margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 13px; opacity: 0.75; display: flex; align-items: center; gap: 8px;
+  }
+
+  /* Intro card */
+  .intro-card {
+    background: var(--paper); border-radius: 22px; padding: 22px 24px;
+    margin-top: 18px; border: 1px solid var(--line);
+    box-shadow: 0 4px 18px -6px rgba(74,55,41,0.08);
+    font-size: 14px; line-height: 1.85; color: var(--brown);
+  }
+  .intro-card a { color: var(--green-light); }
+
+  /* Progress */
+  .progress-track { margin: 20px 4px 8px; display: flex; align-items: center; gap: 8px; }
+  .progress-bar { flex: 1; height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--orange), var(--coral)); border-radius: 999px; transition: width 0.35s ease; }
+  .progress-label { font-size: 12.5px; color: var(--brown-soft); white-space: nowrap; font-weight: 700; }
+
+  /* Cards */
+  .card {
+    background: var(--paper); border-radius: 22px; padding: 26px 24px; margin-top: 18px;
+    box-shadow: 0 4px 18px -6px rgba(74,55,41,0.1); border: 1px solid var(--line);
+  }
+  .q-leaf { width: 26px; height: 26px; flex-shrink: 0; }
+  .q-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 18px; }
+  .q-title { font-size: 16px; font-weight: 700; line-height: 1.55; color: var(--brown); }
+  .q-title .req { color: var(--coral); margin-left: 3px; }
+  .q-sub { font-size: 12.5px; color: var(--brown-soft); margin-top: 4px; font-weight: 400; line-height: 1.6; }
+
+  /* Radio */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    display: flex; align-items: center; gap: 12px; padding: 13px 16px;
+    border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.1s; background: #fff;
+  }
+  .opt:hover { border-color: var(--orange); background: #FFFAF0; }
+  .opt:active { transform: scale(0.99); }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt-dot {
+    width: 20px; height: 20px; border-radius: 50%; border: 2px solid #D8C8AE;
+    flex-shrink: 0; position: relative; transition: border-color 0.18s;
+  }
+  .opt-dot::after {
+    content: ""; position: absolute; inset: 3px; border-radius: 50%;
+    background: var(--orange); transform: scale(0); transition: transform 0.18s;
+  }
+  .opt.selected { border-color: var(--orange-deep); background: #FFF3E0; }
+  .opt.selected .opt-dot { border-color: var(--orange-deep); }
+  .opt.selected .opt-dot::after { transform: scale(1); }
+  .opt-text { font-size: 14.5px; line-height: 1.5; color: var(--brown); }
+
+  /* Other input */
+  .other-input {
+    width: 100%; margin-top: 8px; border: 1.5px solid var(--line); border-radius: 10px;
+    padding: 10px 14px; font-size: 14px; font-family: inherit; color: var(--brown);
+    display: none; background: #fff;
+  }
+  .other-input:focus { outline: none; border-color: var(--orange); }
+  .other-input.show { display: block; }
+
+  /* Stars */
+  .stars { display: flex; justify-content: space-between; gap: 6px; }
+  .star-item { display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; flex: 1; }
+  .star-num { font-size: 12px; color: var(--brown-soft); font-weight: 700; }
+  .star-svg { width: 34px; height: 34px; transition: transform 0.15s; }
+  .star-item:hover .star-svg { transform: scale(1.12); }
+  .star-svg path { fill: none; stroke: #D8C8AE; stroke-width: 1.6; transition: fill 0.15s, stroke 0.15s; }
+  .star-item.active .star-svg path { fill: var(--orange); stroke: var(--orange-deep); }
+  .star-item input { position: absolute; opacity: 0; pointer-events: none; }
+
+  /* Textarea */
+  textarea.q-text {
+    width: 100%; border: 1.5px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; font-size: 14.5px; font-family: inherit; color: var(--brown);
+    resize: vertical; min-height: 84px; transition: border-color 0.18s; background: #fff;
+  }
+  textarea.q-text:focus { outline: none; border-color: var(--orange); }
+  textarea.q-text::placeholder { color: #C4B49C; }
+
+  /* Line social card */
+  .line-card {
+    background: #F0FFF6; border: 1.5px solid #A8D5B5; border-radius: 22px;
+    padding: 22px 24px; margin-top: 18px; font-size: 13.5px; line-height: 1.85;
+    color: var(--brown);
+  }
+  .line-card a { color: var(--green); word-break: break-all; }
+
+  /* Submit */
+  .submit-wrap { margin-top: 28px; text-align: center; }
+  .submit-btn {
+    width: 100%; background: linear-gradient(135deg, var(--coral), var(--orange-deep));
+    color: #fff; border: none; border-radius: 16px; padding: 17px;
+    font-size: 16.5px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer;
+    box-shadow: 0 8px 20px -6px rgba(232,99,74,0.5);
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px -6px rgba(232,99,74,0.6); }
+  .submit-btn:active { transform: translateY(0); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .error-msg { color: var(--coral); font-size: 12.5px; margin-top: 10px; display: none; font-weight: 700; }
+  .card.invalid { border-color: var(--coral); }
+  .card.invalid .error-msg { display: block; }
+
+  /* Success */
+  .success-screen { display: none; text-align: center; padding: 60px 20px; }
+  .success-screen.show { display: block; }
+  .success-icon { width: 84px; height: 84px; margin: 0 auto 22px; }
+  .success-screen h2 { font-size: 21px; color: var(--green); margin: 0 0 10px; }
+  .success-screen p { font-size: 14.5px; color: var(--brown-soft); line-height: 1.7; }
+  .form-screen.hide { display: none; }
+
+  @media (max-width: 420px) {
+    .hero h1 { font-size: 19px; }
+    .card { padding: 22px 18px; }
+    .star-svg { width: 28px; height: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="bg-deco" viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice">
+  <circle cx="370" cy="60" r="90" fill="#F5A623" opacity="0.06"/>
+  <circle cx="20" cy="400" r="120" fill="#2D5C4D" opacity="0.04"/>
+  <circle cx="380" cy="700" r="100" fill="#E8634A" opacity="0.05"/>
+</svg>
+
+<div class="wrap">
+  <div class="form-screen" id="formScreen">
+
+    <!-- Hero -->
+    <div class="hero">
+      <svg class="hero-deco" viewBox="0 0 100 100"><path d="M50 5 C70 5 90 25 90 50 C90 75 70 95 50 95 C30 95 10 75 10 50 C10 25 30 5 50 5 Z" fill="#fff"/></svg>
+      <div class="hero-eyebrow">樂暢親子共學空間</div>
+      <h1>2026歇熱笑咍咍台羅營<br>「<span class="accent">來去台北弄險</span>」<br>課後問卷</h1>
+      <p>感謝大家一同參與樂暢2026歇熱笑哈哈台羅營「來去台北弄險」，<br>希望了解大家對課程安排的滿意度及所有建議，<br>協助我們調整未來課程方向更求進步。<br><br>以下歡迎大家暢所欲言</p>
+    </div>
+
+    <!-- Intro links -->
+    <div class="intro-card">
+      ❤️ 誠摯邀請您將您參與活動的照片與心情分享於樂暢的Google評論或樂暢的粉絲專頁<br>
+      <a href="https://www.facebook.com/lesecondfloor" target="_blank">https://www.facebook.com/lesecondfloor</a><br><br>
+      持續追蹤我們歡迎加入<br>
+      官方LINE：<a href="https://lin.ee/jqY7HN9j" target="_blank">https://lin.ee/jqY7HN9j</a>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-track">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label" id="progressLabel">0 / 19</div>
+    </div>
+
+    <form id="surveyForm">
+
+      <!-- Q1 報名者姓名 -->
+      <div class="card" data-q="q1">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#E8634A"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="#E8634A"/></svg>
+          <div>
+            <div class="q-title">報名者姓名<span class="req">*</span></div>
+            <div class="q-sub">兄弟姊妹一起參加可以寫一起</div>
+          </div>
+        </div>
+        <textarea class="q-text" name="entry.1265989947" placeholder="請填寫姓名"></textarea>
+        <div class="error-msg">請填寫報名者姓名</div>
+      </div>
+
+      <!-- Q2 居住位置 -->
+      <div class="card" data-q="q2">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7z" fill="#2D5C4D"/><circle cx="12" cy="9" r="2.5" fill="#FFF8EE"/></svg>
+          <div>
+            <div class="q-title">您所居住的位置<span class="req">*</span></div>
+            <div class="q-sub">例如：臺北市/中山區；臺北市/大同區</div>
+          </div>
+        </div>
+        <textarea class="q-text" name="entry.160337095" placeholder="縣市／區域"></textarea>
+        <div class="error-msg">請填寫居住位置</div>
+      </div>
+
+      <!-- Q3 小孩年齡 -->
+      <div class="card" data-q="q3">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2C7 6 4 11 4 15a8 8 0 0016 0c0-4-3-9-8-13z" fill="#F5A623"/></svg>
+          <div>
+            <div class="q-title">小孩年齡<span class="req">*</span></div>
+            <div class="q-sub">若有兩位請依序填寫</div>
+          </div>
+        </div>
+        <textarea class="q-text" name="entry.927222234" placeholder="例：5歲、8歲"></textarea>
+        <div class="error-msg">請填寫小孩年齡</div>
+      </div>
+
+      <!-- Q4 參加哪個場次 -->
+      <div class="card" data-q="q4">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="3" fill="#4A7A68"/><path d="M8 2v4M16 2v4M3 10h18" stroke="#FFF8EE" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <div class="q-title">參加哪個場次？<span class="req">*</span></div>
+        </div>
+        <div class="options" data-name="entry.867028345" data-type="radio">
+          <label class="opt"><input type="radio" name="entry.867028345" value="初階"><span class="opt-dot"></span><span class="opt-text">初階</span></label>
+          <label class="opt"><input type="radio" name="entry.867028345" value="進階"><span class="opt-dot"></span><span class="opt-text">進階</span></label>
+        </div>
+        <div class="error-msg">請選擇場次</div>
+      </div>
+
+      <!-- Q5 之前是否參加過樂暢活動 -->
+      <div class="card" data-q="q5">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2C7 6 4 11 4 15a8 8 0 0016 0c0-4-3-9-8-13z" fill="#E8634A"/></svg>
+          <div class="q-title">之前是否參加過樂暢舉辦的活動？<span class="req">*</span></div>
+        </div>
+        <div class="options" data-name="entry.1282662971" data-type="radio">
+          <label class="opt"><input type="radio" name="entry.1282662971" value="是"><span class="opt-dot"></span><span class="opt-text">是</span></label>
+          <label class="opt"><input type="radio" name="entry.1282662971" value="否"><span class="opt-dot"></span><span class="opt-text">否</span></label>
+        </div>
+        <div class="error-msg">請選擇一個選項</div>
+      </div>
+
+      <!-- Q6 對活動整體滿意度 -->
+      <div class="card" data-q="q6">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z" fill="#F5A623"/></svg>
+          <div class="q-title">對活動整體滿意度？<span class="req">*</span></div>
+        </div>
+        <div class="stars" data-name="entry.578147066" data-type="star">
+          <label class="star-item" data-val="1"><span class="star-num">1</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.578147066" value="1"></label>
+          <label class="star-item" data-val="2"><span class="star-num">2</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.578147066" value="2"></label>
+          <label class="star-item" data-val="3"><span class="star-num">3</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.578147066" value="3"></label>
+          <label class="star-item" data-val="4"><span class="star-num">4</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.578147066" value="4"></label>
+          <label class="star-item" data-val="5"><span class="star-num">5</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.578147066" value="5"></label>
+        </div>
+        <div class="error-msg">請給予評分</div>
+      </div>
+
+      <!-- Q7 對環境硬體的滿意度 -->
+      <div class="card" data-q="q7">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" fill="#4A7A68"/></svg>
+          <div class="q-title">對環境硬體的滿意度？<span class="req">*</span></div>
+        </div>
+        <div class="stars" data-name="entry.2045939945" data-type="star">
+          <label class="star-item" data-val="1"><span class="star-num">1</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.2045939945" value="1"></label>
+          <label class="star-item" data-val="2"><span class="star-num">2</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.2045939945" value="2"></label>
+          <label class="star-item" data-val="3"><span class="star-num">3</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.2045939945" value="3"></label>
+          <label class="star-item" data-val="4"><span class="star-num">4</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.2045939945" value="4"></label>
+          <label class="star-item" data-val="5"><span class="star-num">5</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.2045939945" value="5"></label>
+        </div>
+        <div class="error-msg">請給予評分</div>
+      </div>
+
+      <!-- Q8 對老師的滿意度 -->
+      <div class="card" data-q="q8">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z" fill="#F5A623"/></svg>
+          <div class="q-title">對老師的滿意度？<span class="req">*</span></div>
+        </div>
+        <div class="stars" data-name="entry.1779283851" data-type="star">
+          <label class="star-item" data-val="1"><span class="star-num">1</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1779283851" value="1"></label>
+          <label class="star-item" data-val="2"><span class="star-num">2</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1779283851" value="2"></label>
+          <label class="star-item" data-val="3"><span class="star-num">3</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1779283851" value="3"></label>
+          <label class="star-item" data-val="4"><span class="star-num">4</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1779283851" value="4"></label>
+          <label class="star-item" data-val="5"><span class="star-num">5</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1779283851" value="5"></label>
+        </div>
+        <div class="error-msg">請給予評分</div>
+      </div>
+
+      <!-- Q9 對助教老師的滿意度 -->
+      <div class="card" data-q="q9">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z" fill="#E8634A"/></svg>
+          <div class="q-title">對助教老師的滿意度？<span class="req">*</span></div>
+        </div>
+        <div class="stars" data-name="entry.1422756643" data-type="star">
+          <label class="star-item" data-val="1"><span class="star-num">1</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1422756643" value="1"></label>
+          <label class="star-item" data-val="2"><span class="star-num">2</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1422756643" value="2"></label>
+          <label class="star-item" data-val="3"><span class="star-num">3</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1422756643" value="3"></label>
+          <label class="star-item" data-val="4"><span class="star-num">4</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1422756643" value="4"></label>
+          <label class="star-item" data-val="5"><span class="star-num">5</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.1422756643" value="5"></label>
+        </div>
+        <div class="error-msg">請給予評分</div>
+      </div>
+
+      <!-- Q10 對行政人員的滿意度 -->
+      <div class="card" data-q="q10">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z" fill="#2D5C4D"/></svg>
+          <div class="q-title">對行政人員的滿意度？<span class="req">*</span></div>
+        </div>
+        <div class="stars" data-name="entry.930804664" data-type="star">
+          <label class="star-item" data-val="1"><span class="star-num">1</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.930804664" value="1"></label>
+          <label class="star-item" data-val="2"><span class="star-num">2</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.930804664" value="2"></label>
+          <label class="star-item" data-val="3"><span class="star-num">3</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.930804664" value="3"></label>
+          <label class="star-item" data-val="4"><span class="star-num">4</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.930804664" value="4"></label>
+          <label class="star-item" data-val="5"><span class="star-num">5</span><svg class="star-svg" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.4 4.6L18.4 21 12 17l-6.4 4 1.8-6.8L2 9.6 9 9z"/></svg><input type="radio" name="entry.930804664" value="5"></label>
+        </div>
+        <div class="error-msg">請給予評分</div>
+      </div>
+
+      <!-- Q11 是否擁有笑哈哈台語發音玲瑯盒仔教材 -->
+      <div class="card" data-q="q11">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v12H7l-3 4V4z" fill="#F5A623"/></svg>
+          <div class="q-title">你是否擁有「笑哈哈台語發音玲瑯盒仔」教材？<span class="req">*</span></div>
+        </div>
+        <div class="options" data-name="entry.11341690" data-type="radio">
+          <label class="opt"><input type="radio" name="entry.11341690" value="是"><span class="opt-dot"></span><span class="opt-text">是</span></label>
+          <label class="opt"><input type="radio" name="entry.11341690" value="否"><span class="opt-dot"></span><span class="opt-text">否</span></label>
+        </div>
+        <div class="error-msg">請選擇一個選項</div>
+      </div>
+
+      <!-- Q12 是否想購買/推薦玲瑯盒仔 -->
+      <div class="card" data-q="q12">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2C7 6 4 11 4 15a8 8 0 0016 0c0-4-3-9-8-13z" fill="#4A7A68"/></svg>
+          <div>
+            <div class="q-title">若原本沒有「笑哈哈台語發音玲瑯盒仔」教材，參加完活動後是否想要購買？若已有教材是否推薦其他人購買？<span class="req">*</span></div>
+            <div class="q-sub"><a href="https://wabay.tw/projects/tshio-hai-hai?context=search&locale=zh-TW" target="_blank" style="color:var(--green-light);">笑哈哈台語發音玲瑯盒仔購買連結</a></div>
+          </div>
+        </div>
+        <div class="options" data-name="entry.87804058" data-type="radio-other">
+          <label class="opt"><input type="radio" name="entry.87804058" value="是"><span class="opt-dot"></span><span class="opt-text">是</span></label>
+          <label class="opt"><input type="radio" name="entry.87804058" value="否"><span class="opt-dot"></span><span class="opt-text">否</span></label>
+          <label class="opt opt-other-trigger"><input type="radio" name="entry.87804058" value="__other__"><span class="opt-dot"></span><span class="opt-text">其他</span></label>
+        </div>
+        <input type="text" class="other-input" id="other_q12" placeholder="請填寫其他意見">
+        <div class="error-msg">請選擇一個選項</div>
+      </div>
+
+      <!-- Q13 是否希望購買大教材 -->
+      <div class="card" data-q="q13">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5V4z" fill="#E8634A"/></svg>
+          <div>
+            <div class="q-title">你是否希望購買這次老師上課使用的「笑哈哈台語發音大教材」？<span class="req">*</span></div>
+            <div class="q-sub">大教材盒裝、拼音家私頭、大大本字帖</div>
+          </div>
+        </div>
+        <div class="options" data-name="entry.2062299053" data-type="radio">
+          <label class="opt"><input type="radio" name="entry.2062299053" value="是"><span class="opt-dot"></span><span class="opt-text">是</span></label>
+          <label class="opt"><input type="radio" name="entry.2062299053" value="否"><span class="opt-dot"></span><span class="opt-text">否</span></label>
+        </div>
+        <div class="error-msg">請選擇一個選項</div>
+      </div>
+
+      <!-- Q14 小孩最喜歡印象最深刻的活動 -->
+      <div class="card" data-q="q14">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9-9a5 5 0 019-3 5 5 0 019 3c-2 4.5-9 9-9 9z" fill="#E8634A"/></svg>
+          <div>
+            <div class="q-title">小孩最喜歡印象最深刻的活動是什麼呢？<span class="req">*</span></div>
+            <div class="q-sub">（請詢問孩子的意見）</div>
+          </div>
+        </div>
+        <textarea class="q-text" name="entry.1767174508" placeholder="孩子最開心的部分是⋯⋯"></textarea>
+        <div class="error-msg">請填寫您的回答</div>
+      </div>
+
+      <!-- Q15 此次課程規劃最令您感動的地方 -->
+      <div class="card" data-q="q15">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-3 11.2V16h6v-1.8A6 6 0 0012 3z" fill="#F5A623"/></svg>
+          <div class="q-title">此次課程規劃最令您感動的地方？<span class="req">*</span></div>
+        </div>
+        <textarea class="q-text" name="entry.1303281428" placeholder="讓您最感動的是⋯⋯"></textarea>
+        <div class="error-msg">請填寫您的回答</div>
+      </div>
+
+      <!-- Q16 未來想參加什麼活動 -->
+      <div class="card" data-q="q16">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" fill="#2D5C4D"/></svg>
+          <div class="q-title">未來想在樂暢參加什麼樣的活動？<span class="req">*</span></div>
+        </div>
+        <textarea class="q-text" name="entry.172051697" placeholder="您期待的活動類型⋯⋯"></textarea>
+        <div class="error-msg">請填寫您的回答</div>
+      </div>
+
+      <!-- Q17 小孩的想法 -->
+      <div class="card" data-q="q17">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" fill="#E8634A"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="#E8634A"/></svg>
+          <div class="q-title">小孩有什麼想法、問題及建議想對樂暢說？<span class="req">*</span></div>
+        </div>
+        <textarea class="q-text" name="entry.1691023730" placeholder="孩子的心聲⋯⋯"></textarea>
+        <div class="error-msg">請填寫您的回答</div>
+      </div>
+
+      <!-- Q18 家長的想法 -->
+      <div class="card" data-q="q18">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9z" fill="#4A7A68"/></svg>
+          <div class="q-title">家長有什麼想法、問題及建議想對樂暢說？<span class="req">*</span></div>
+        </div>
+        <textarea class="q-text" name="entry.2101751016" placeholder="您的建議是我們進步的養分⋯⋯"></textarea>
+        <div class="error-msg">請填寫您的回答</div>
+      </div>
+
+      <!-- Q19 是否有加入文化部的台語家庭 -->
+      <div class="card" data-q="q19">
+        <div class="q-head">
+          <svg class="q-leaf" viewBox="0 0 24 24" fill="none"><path d="M12 2C7 6 4 11 4 15a8 8 0 0016 0c0-4-3-9-8-13z" fill="#2D5C4D"/></svg>
+          <div class="q-title">是否有加入文化部的台語家庭？<span class="req">*</span></div>
+        </div>
+        <div class="options" data-name="entry.837398465" data-type="radio">
+          <label class="opt"><input type="radio" name="entry.837398465" value="有, 已經開始集點囉"><span class="opt-dot"></span><span class="opt-text">有，已經開始集點囉</span></label>
+          <label class="opt"><input type="radio" name="entry.837398465" value="有興趣尚未加入"><span class="opt-dot"></span><span class="opt-text">有興趣尚未加入</span></label>
+          <label class="opt"><input type="radio" name="entry.837398465" value="想加入但程序太繁瑣"><span class="opt-dot"></span><span class="opt-text">想加入但程序太繁瑣</span></label>
+          <label class="opt"><input type="radio" name="entry.837398465" value="不感興趣"><span class="opt-dot"></span><span class="opt-text">不感興趣</span></label>
+          <label class="opt"><input type="radio" name="entry.837398465" value="那是什麼?"><span class="opt-dot"></span><span class="opt-text">那是什麼？</span></label>
+        </div>
+        <div class="error-msg">請選擇一個選項</div>
+      </div>
+
+      <!-- Line 社群邀請 -->
+      <div class="line-card">
+        <strong>Line社群-樂暢訊息交換所❤️</strong><br>
+        您已被邀請加入「樂暢訊息交換所Lòk-thiòng Sìn-sit Kau-uānn-sóo」！請點選以下連結加入社群！更多樂暢的活動訊息不漏接，暗號是<br>
+        「愛台灣、愛台北、愛囡仔」<br>
+        <a href="https://line.me/ti/g2/9qzU2J4A9e5Z7VvuiVDKBoFZN0d1sTZM3vS2Xw?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank">點此加入 Line 社群</a>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit" class="submit-btn" id="submitBtn">送出問卷</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Success -->
+  <div class="success-screen" id="successScreen">
+    <svg class="success-icon" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="#2D5C4D"/>
+      <path d="M30 52l14 14 26-30" stroke="#F5A623" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h2>感謝您的填答！</h2>
+    <p>您的回饋對樂暢非常重要，<br>期待下次再與孩子一起共學台語 🌿</p>
+  </div>
+</div>
+
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+
+<script>
+(function () {
+  const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSdOrjuXxLCO8Gl-2nKUq1zoi8P2PceWdhmVhiWf52sL1rQyTQ/formResponse";
+  const TOTAL_Q = 19;
+
+  const form = document.getElementById('surveyForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+
+  // Radio
+  document.querySelectorAll('.options[data-type="radio"], .options[data-type="radio-other"]').forEach(group => {
+    const opts = group.querySelectorAll('.opt');
+    opts.forEach(opt => {
+      opt.addEventListener('click', () => {
+        opts.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        // handle other
+        const card = group.closest('.card');
+        const otherInput = card ? card.querySelector('.other-input') : null;
+        if (otherInput) {
+          const isOther = opt.classList.contains('opt-other-trigger');
+          otherInput.classList.toggle('show', isOther);
+        }
+        clearError(card);
+        updateProgress();
+      });
+    });
+  });
+
+  // Stars
+  document.querySelectorAll('.stars[data-type="star"]').forEach(group => {
+    const items = group.querySelectorAll('.star-item');
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const val = parseInt(item.dataset.val);
+        items.forEach(i => i.classList.toggle('active', parseInt(i.dataset.val) <= val));
+        clearError(group.closest('.card'));
+        updateProgress();
+      });
+    });
+  });
+
+  // Textarea
+  document.querySelectorAll('textarea.q-text').forEach(ta => {
+    ta.addEventListener('input', () => {
+      clearError(ta.closest('.card'));
+      updateProgress();
+    });
+  });
+
+  function clearError(card) { if (card) card.classList.remove('invalid'); }
+
+  function isCardFilled(card) {
+    const radioGroup = card.querySelector('[data-type="radio"]');
+    if (radioGroup) return !!form.querySelector(`input[name="${radioGroup.dataset.name}"]:checked`);
+    const radioOther = card.querySelector('[data-type="radio-other"]');
+    if (radioOther) return !!form.querySelector(`input[name="${radioOther.dataset.name}"]:checked`);
+    const starGroup = card.querySelector('[data-type="star"]');
+    if (starGroup) return !!form.querySelector(`input[name="${starGroup.dataset.name}"]:checked`);
+    const textarea = card.querySelector('textarea.q-text');
+    if (textarea) return textarea.value.trim().length > 0;
+    return true;
+  }
+
+  function updateProgress() {
+    const cards = document.querySelectorAll('.card[data-q]');
+    let filled = 0;
+    cards.forEach(c => { if (isCardFilled(c)) filled++; });
+    progressFill.style.width = Math.round((filled / TOTAL_Q) * 100) + '%';
+    progressLabel.textContent = filled + ' / ' + TOTAL_Q;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const cards = document.querySelectorAll('.card[data-q]');
+    let firstInvalid = null;
+    cards.forEach(card => {
+      if (!isCardFilled(card)) {
+        card.classList.add('invalid');
+        if (!firstInvalid) firstInvalid = card;
+      } else {
+        card.classList.remove('invalid');
+      }
+    });
+    if (firstInvalid) { firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '送出中⋯⋯';
+
+    const gForm = document.createElement('form');
+    gForm.action = GOOGLE_FORM_ACTION;
+    gForm.method = 'POST';
+    gForm.target = 'hidden_iframe';
+    gForm.style.display = 'none';
+
+    // Handle regular inputs
+    form.querySelectorAll('input[type="radio"]:checked, textarea').forEach(input => {
+      let value = input.value;
+      // If "other" selected, use the text input value
+      if (value === '__other__') {
+        const card = input.closest('.card');
+        const otherInput = card ? card.querySelector('.other-input') : null;
+        value = otherInput ? otherInput.value.trim() : '';
+        if (!value) value = '其他';
+      }
+      const hidden = document.createElement('input');
+      hidden.type = 'hidden';
+      hidden.name = input.name;
+      hidden.value = value;
+      gForm.appendChild(hidden);
+    });
+
+    document.body.appendChild(gForm);
+    gForm.submit();
+
+    setTimeout(() => {
+      document.getElementById('formScreen').classList.add('hide');
+      document.getElementById('successScreen').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 900);
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
